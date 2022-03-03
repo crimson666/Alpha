@@ -5,6 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.alpha.Adapter.ChatScreenAdapter;
 import com.example.alpha.Pojo.MyListData;
@@ -53,5 +57,16 @@ public class ChatScreenActivity extends AppCompatActivity {
 
         ChatScreenAdapter adapter = new ChatScreenAdapter(myListData);
         recyclerView.setAdapter(adapter);
+
+        EditText etTypeMsg = findViewById(R.id.type_msg);
+        ImageButton btnSend = findViewById(R.id.send_btn);
+
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String str = etTypeMsg.getText().toString();
+                Toast msg = Toast.makeText(getBaseContext(),str,Toast.LENGTH_LONG);
+                msg.show();
+            }
+        });
     }
 }
