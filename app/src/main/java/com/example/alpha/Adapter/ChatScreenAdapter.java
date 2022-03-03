@@ -104,5 +104,4 @@ public class ChatScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private void initLayoutTwo(ViewHolderIncomingMsg holder, int pos) {
 
     }
-
 }
