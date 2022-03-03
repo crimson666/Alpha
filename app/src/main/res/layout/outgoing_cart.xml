@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/outgoing_cart"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="right">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/outgoing_bubble"
+        android:lineSpacingExtra="2dp"
+        android:layout_marginLeft="50dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="4dp"
+        android:paddingRight="40dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:text="Hi, How are you nkajsnf qwjriow jwofkin jask jkfs jaskfmi jask?"
+        />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="10dp"/>
+
+</LinearLayout>

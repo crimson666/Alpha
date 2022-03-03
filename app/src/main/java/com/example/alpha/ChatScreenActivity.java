@@ -29,12 +29,29 @@ public class ChatScreenActivity extends AppCompatActivity {
                 new MyListData("Dialer", android.R.drawable.ic_dialog_dialer),
                 new MyListData("Alert", android.R.drawable.ic_dialog_alert),
                 new MyListData("Map", android.R.drawable.ic_dialog_map),
+                new MyListData("Map", android.R.drawable.ic_dialog_map),
+                new MyListData("Map", android.R.drawable.ic_dialog_map),
+                new MyListData("Map", android.R.drawable.ic_dialog_map),
+                new MyListData("Map", android.R.drawable.ic_dialog_map),
+                new MyListData("Map", android.R.drawable.ic_dialog_map),
+                new MyListData("Map", android.R.drawable.ic_dialog_map),
+                new MyListData("Map", android.R.drawable.ic_dialog_map),
+                new MyListData("Map", android.R.drawable.ic_dialog_map),
+                new MyListData("Email", android.R.drawable.ic_dialog_email),
+                new MyListData("Info", android.R.drawable.ic_dialog_info),
+                new MyListData("Delete", android.R.drawable.ic_delete),
+                new MyListData("Dialer", android.R.drawable.ic_dialog_dialer),
+                new MyListData("Alert", android.R.drawable.ic_dialog_alert),
+                new MyListData("Map", android.R.drawable.ic_dialog_map),
+                new MyListData("Email", android.R.drawable.ic_dialog_email),
+                new MyListData("Info", android.R.drawable.ic_dialog_info),
         };
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        ChatScreenAdapter adapter = new ChatScreenAdapter(myListData);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        ChatScreenAdapter adapter = new ChatScreenAdapter(myListData);
         recyclerView.setAdapter(adapter);
     }
 }
