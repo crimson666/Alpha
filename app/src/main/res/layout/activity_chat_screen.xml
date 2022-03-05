@@ -8,12 +8,15 @@
     android:orientation="vertical"
     android:weightSum="10">
 
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="vertical"
-        android:id="@+id/recyclerView"
-        android:layout_weight="9.15"/>
+        android:layout_weight="9.15"
+        />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,8 +29,10 @@
             android:id="@+id/type_msg"
             android:layout_height="match_parent"
             android:layout_width="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="2.5"/>
+            android:layout_margin="10dp"
+            android:textColor="@color/black"
+            android:layout_weight="2.5"
+            android:background="@drawable/rounded_edit_text"/>
 
         <ImageButton
             android:id="@+id/send_btn"
@@ -35,7 +40,8 @@
             android:layout_weight="0.5"
             android:layout_margin="10dp"
             android:layout_height="match_parent"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@mipmap/ic_launcher"
+            />
 
     </LinearLayout>
 
