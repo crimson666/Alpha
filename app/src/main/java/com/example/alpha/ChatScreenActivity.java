@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.alpha.Adapter.ChatScreenAdapter;
 
@@ -17,8 +18,7 @@ import java.util.List;
 
 public class ChatScreenActivity extends AppCompatActivity {
 
-    private List<String> userMsgLst;
-    private List<String> appMsgLst;
+    private List<String> userMsgLst, appMsgLst;
     private EditText etTypeMsg;
     private RecyclerView recyclerView;
     private ChatScreenAdapter adapter;
@@ -52,16 +52,24 @@ public class ChatScreenActivity extends AppCompatActivity {
     private void btnSendAction() {
 
         String str = etTypeMsg.getText().toString().trim();
-        userMsgLst.add(str);
+        if(!str.isEmpty()) {
+            // adding user response in the arraylist
+            userMsgLst.add(str);
 
-        recyclerView.post(new Runnable() {
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void run() {
-                adapter.notifyDataSetChanged();
-            }
-        });
-        etTypeMsg.setText("");
+            // refreshing the recycler view
+            recyclerView.post(new Runnable() {
+                @SuppressLint("NotifyDataSetChanged")
+                @Override
+                public void run() {
+                    adapter.notifyDataSetChanged();
+                }
+            });
 
+            // making editText ready for next msg from the user
+            etTypeMsg.setText("");
+
+        } else {
+            Toast.makeText(getApplicationContext(),"Please enter a valid response",Toast.LENGTH_LONG).show();
+        }
     }
 }
