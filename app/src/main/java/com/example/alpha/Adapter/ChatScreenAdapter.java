@@ -1,5 +1,6 @@
 package com.example.alpha.Adapter;
 
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,21 +9,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.alpha.Pojo.MyListData;
 import com.example.alpha.R;
 
 import java.util.List;
 
 
 public class ChatScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    private final List<String> userMsgLst;
-    private final List<String> appMsgLst;
+    private final List<MyListData> msgLst;
 
     private static final int TYPE_USER_MSG = 1;
     private static final int TYPE_APP_MSG = 2;
 
-    public ChatScreenAdapter(List<String> userMsgLst, List<String> appMsgLst) {
-        this.userMsgLst = userMsgLst;
-        this.appMsgLst = appMsgLst;
+    public ChatScreenAdapter(List<MyListData> msgLst) {
+        this.msgLst = msgLst;
     }
 
     @NonNull
@@ -46,7 +46,7 @@ public class ChatScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 initLayoutAppMsg((ViewHolderOutgoingMsg) holder, position);
                 break;
             case TYPE_APP_MSG:
-                initLayoutUserMsg((ViewHolderIncomingMsg) holder, position - userMsgLst.size());
+                initLayoutUserMsg((ViewHolderIncomingMsg) holder, position);
                 break;
             default:
                 break;
@@ -55,21 +55,20 @@ public class ChatScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return userMsgLst.size() + appMsgLst.size();
+        return msgLst.size();
     }
 
     @Override
     public int getItemViewType(int position) {
 
-        if(position < userMsgLst.size()){
-            return TYPE_USER_MSG;
-        }
+        String msgType = msgLst.get(position).getReceiveOrSend();
 
-        if(position - userMsgLst.size() < appMsgLst.size()){
+        if(msgType.equals("SEND")){
+            return TYPE_USER_MSG;
+        } else {
             return TYPE_APP_MSG;
         }
 
-        return -1;
     }
 
     public static class ViewHolderIncomingMsg extends RecyclerView.ViewHolder {
@@ -93,10 +92,13 @@ public class ChatScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void initLayoutUserMsg(ViewHolderIncomingMsg holder, int pos) {
-        holder.textView.setText(appMsgLst.get(pos));
+        MyListData myListData = msgLst.get(pos);
+        holder.textView.setText(myListData.getMsg());
     }
 
     private void initLayoutAppMsg(ViewHolderOutgoingMsg holder, int pos) {
-        holder.textView.setText(userMsgLst.get(pos));
+        MyListData myListData = msgLst.get(pos);
+        holder.textView.setText(myListData.getMsg());
     }
 }
+

@@ -12,25 +12,33 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.alpha.Adapter.ChatScreenAdapter;
+import com.example.alpha.Pojo.MyListData;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChatScreenActivity extends AppCompatActivity {
 
-    private List<String> userMsgLst, appMsgLst;
+    private List<MyListData> msgLst;
     private EditText etTypeMsg;
     private RecyclerView recyclerView;
     private ChatScreenAdapter adapter;
+
+    private static final String SEND = "SEND";
+    private static final String RECEIVE = "RECEIVE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_screen);
 
-        userMsgLst = new ArrayList<>();
-        appMsgLst = new ArrayList<>();
-        appMsgLst.add("Welcome to PXL Enterprise. \n * Press 1 to start the KYC procedure. \n * Press 2 to enter scratch card code.");
+        msgLst = new ArrayList<>();
+
+        MyListData myListData = new MyListData();
+        myListData.setMsg("Welcome to PXL Enterprise. \n * Press 1 to start the KYC procedure. \n" +
+                " * Press 2 to enter scratch card code.");
+        myListData.setReceiveOrSend(RECEIVE);
+        msgLst.add(myListData);
 
         etTypeMsg = findViewById(R.id.type_msg);
         ImageButton btnSend = findViewById(R.id.send_btn);
@@ -39,7 +47,7 @@ public class ChatScreenActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new ChatScreenAdapter(userMsgLst, appMsgLst);
+        adapter = new ChatScreenAdapter(msgLst);
         recyclerView.setAdapter(adapter);
 
         btnSend.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +62,10 @@ public class ChatScreenActivity extends AppCompatActivity {
         String str = etTypeMsg.getText().toString().trim();
         if(!str.isEmpty()) {
             // adding user response in the arraylist
-            userMsgLst.add(str);
+            msgLst.add(new MyListData(str, SEND));
+            if(str.equals("1")){
+                msgLst.add(new MyListData("User pressed 1", RECEIVE));
+            }
 
             // refreshing the recycler view
             recyclerView.post(new Runnable() {

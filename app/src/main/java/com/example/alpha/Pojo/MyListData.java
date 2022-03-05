@@ -1,22 +1,30 @@
 package com.example.alpha.Pojo;
 
-public class MyListData{
-    private String description;
-    private int imgId;
-    public MyListData(String description, int imgId) {
-        this.description = description;
-        this.imgId = imgId;
+public class MyListData {
+
+    private String msg;
+    private String receiveOrSend;
+
+    public MyListData() {}
+
+    public MyListData(String msg, String receiveOrSend) {
+        this.msg = msg;
+        this.receiveOrSend = receiveOrSend;
     }
-    public String getDescription() {
-        return description;
+
+    public String getMsg() {
+        return msg;
     }
-    public void setDescription(String description) {
-        this.description = description;
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
-    public int getImgId() {
-        return imgId;
+
+    public String getReceiveOrSend() {
+        return receiveOrSend;
     }
-    public void setImgId(int imgId) {
-        this.imgId = imgId;
+
+    public void setReceiveOrSend(String receiveOrSend) {
+        this.receiveOrSend = receiveOrSend;
     }
 }
