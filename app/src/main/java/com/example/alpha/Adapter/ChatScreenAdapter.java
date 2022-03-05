@@ -8,29 +8,32 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.alpha.Pojo.MyListData;
 import com.example.alpha.R;
+
+import java.util.List;
 
 
 public class ChatScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    private final MyListData[] listData;
+    private final List<String> userMsgLst;
+    private final List<String> appMsgLst;
 
-    private static final int TYPE_MSG_SEND = 1;
-    private static final int TYPE_MSG_RECEIVE = 2;
+    private static final int TYPE_USER_MSG = 1;
+    private static final int TYPE_APP_MSG = 2;
 
-    public ChatScreenAdapter(MyListData[] listData) {
-        this.listData = listData;
+    public ChatScreenAdapter(List<String> userMsgLst, List<String> appMsgLst) {
+        this.userMsgLst = userMsgLst;
+        this.appMsgLst = appMsgLst;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        if (viewType == TYPE_MSG_SEND) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.incoming_cart, parent, false);
+        if (viewType == TYPE_USER_MSG) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.outgoing_cart, parent, false);
             return new ViewHolderOutgoingMsg(view);
         } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.outgoing_cart, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.incoming_cart, parent, false);
             return new ViewHolderIncomingMsg(view);
         }
     }
@@ -39,11 +42,11 @@ public class ChatScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         switch (holder.getItemViewType()) {
-            case TYPE_MSG_SEND:
-                initLayoutOne((ViewHolderOutgoingMsg) holder, position);
+            case TYPE_USER_MSG:
+                initLayoutAppMsg((ViewHolderOutgoingMsg) holder, position);
                 break;
-            case TYPE_MSG_RECEIVE:
-                initLayoutTwo((ViewHolderIncomingMsg) holder, position);
+            case TYPE_APP_MSG:
+                initLayoutUserMsg((ViewHolderIncomingMsg) holder, position - userMsgLst.size());
                 break;
             default:
                 break;
@@ -52,17 +55,21 @@ public class ChatScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return listData.length;
+        return userMsgLst.size() + appMsgLst.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        double counter = Math.random();
-        if (counter > 0.5) {
-            return TYPE_MSG_SEND;
-        } else {
-            return TYPE_MSG_RECEIVE;
+
+        if(position < userMsgLst.size()){
+            return TYPE_USER_MSG;
         }
+
+        if(position - userMsgLst.size() < appMsgLst.size()){
+            return TYPE_APP_MSG;
+        }
+
+        return -1;
     }
 
     public static class ViewHolderIncomingMsg extends RecyclerView.ViewHolder {
@@ -85,24 +92,11 @@ public class ChatScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    private void initLayoutOne(ViewHolderOutgoingMsg holder, int pos) {
-        /*
-        DataObject current = data.get(pos);
-        holder.tvEventTitle.setText(current.getCategoryName());
-        holder.tvEventDescription.setText(current.getmText2());
-        userImage = current.getImage();
-        if (userImage.isEmpty()) {
-
-        } else {
-            Picasso.with(context)
-                    .load(userImage)
-                    .placeholder(R.drawable.app_icons)
-                    .into((holder).ivEventImage);
-        }*/
+    private void initLayoutUserMsg(ViewHolderIncomingMsg holder, int pos) {
+        holder.textView.setText(appMsgLst.get(pos));
     }
 
-
-    private void initLayoutTwo(ViewHolderIncomingMsg holder, int pos) {
-
+    private void initLayoutAppMsg(ViewHolderOutgoingMsg holder, int pos) {
+        holder.textView.setText(userMsgLst.get(pos));
     }
 }
