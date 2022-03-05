@@ -1,11 +1,15 @@
 package com.example.alpha.Adapters;
 
 
+import android.graphics.Color;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,7 +20,7 @@ import com.example.alpha.R;
 import java.util.List;
 
 
-public class ChatScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class ChatScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final List<DataPojo> msgLst;
 
     private static final int TYPE_USER_MSG = 1;
@@ -64,7 +68,7 @@ public class ChatScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         String msgType = msgLst.get(position).getReceiveOrSend();
 
-        if(msgType.equals(Constants.SEND)){
+        if (msgType.equals(Constants.SEND)) {
             return TYPE_USER_MSG;
         } else {
             return TYPE_APP_MSG;
@@ -75,6 +79,7 @@ public class ChatScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public static class ViewHolderIncomingMsg extends RecyclerView.ViewHolder {
         public TextView textView;
         public LinearLayout linearLayout;
+
         public ViewHolderIncomingMsg(View itemView) {
             super(itemView);
             this.textView = itemView.findViewById(R.id.textView);
@@ -85,10 +90,13 @@ public class ChatScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public static class ViewHolderOutgoingMsg extends RecyclerView.ViewHolder {
         public TextView textView;
         public LinearLayout linearLayout;
+        public ImageView imageView;
+
         public ViewHolderOutgoingMsg(View itemView) {
             super(itemView);
             this.textView = itemView.findViewById(R.id.textView);
             this.linearLayout = itemView.findViewById(R.id.outgoing_cart);
+            this.imageView = itemView.findViewById(R.id.imageView);
         }
     }
 
@@ -99,7 +107,18 @@ public class ChatScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private void initLayoutAppMsg(ViewHolderOutgoingMsg holder, int pos) {
         DataPojo dataPojo = msgLst.get(pos);
-        holder.textView.setText(dataPojo.getMsg());
+
+        holder.textView.setVisibility(View.GONE);
+        holder.imageView.setVisibility(View.GONE);
+
+        if (dataPojo.getMsg() != null) {
+            holder.textView.setVisibility(View.VISIBLE);
+            holder.textView.setText(dataPojo.getMsg());
+        } else if (dataPojo.getImgBitmap() != null) {
+            holder.imageView.setVisibility(View.VISIBLE);
+            holder.imageView.setImageBitmap(dataPojo.getImgBitmap());
+        }
+
     }
 }
 
