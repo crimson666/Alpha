@@ -1,4 +1,4 @@
-package com.example.alpha.Adapter;
+package com.example.alpha.Adapters;
 
 
 import android.view.LayoutInflater;
@@ -9,19 +9,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.alpha.Pojo.MyListData;
+import com.example.alpha.Constants;
+import com.example.alpha.Pojo.DataPojo;
 import com.example.alpha.R;
 
 import java.util.List;
 
 
 public class ChatScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    private final List<MyListData> msgLst;
+    private final List<DataPojo> msgLst;
 
     private static final int TYPE_USER_MSG = 1;
     private static final int TYPE_APP_MSG = 2;
 
-    public ChatScreenAdapter(List<MyListData> msgLst) {
+    public ChatScreenAdapter(List<DataPojo> msgLst) {
         this.msgLst = msgLst;
     }
 
@@ -63,7 +64,7 @@ public class ChatScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         String msgType = msgLst.get(position).getReceiveOrSend();
 
-        if(msgType.equals("SEND")){
+        if(msgType.equals(Constants.SEND)){
             return TYPE_USER_MSG;
         } else {
             return TYPE_APP_MSG;
@@ -92,13 +93,13 @@ public class ChatScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void initLayoutUserMsg(ViewHolderIncomingMsg holder, int pos) {
-        MyListData myListData = msgLst.get(pos);
-        holder.textView.setText(myListData.getMsg());
+        DataPojo dataPojo = msgLst.get(pos);
+        holder.textView.setText(dataPojo.getMsg());
     }
 
     private void initLayoutAppMsg(ViewHolderOutgoingMsg holder, int pos) {
-        MyListData myListData = msgLst.get(pos);
-        holder.textView.setText(myListData.getMsg());
+        DataPojo dataPojo = msgLst.get(pos);
+        holder.textView.setText(dataPojo.getMsg());
     }
 }
 

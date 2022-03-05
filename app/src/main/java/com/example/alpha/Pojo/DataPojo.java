@@ -1,13 +1,13 @@
 package com.example.alpha.Pojo;
 
-public class MyListData {
+public class DataPojo {
 
     private String msg;
     private String receiveOrSend;
 
-    public MyListData() {}
+    public DataPojo() {}
 
-    public MyListData(String msg, String receiveOrSend) {
+    public DataPojo(String msg, String receiveOrSend) {
         this.msg = msg;
         this.receiveOrSend = receiveOrSend;
     }
