@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".slashScreen"
     android:orientation="vertical"
     android:weightSum="10">
 
@@ -14,44 +14,49 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="vertical"
-        android:layout_weight="9.15"
+        android:layout_weight="9.25"
         />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.85"
+        android:layout_gravity="bottom"
         android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="0.75"
+        android:layout_marginBottom="10dp"
         android:weightSum="3">
 
         <EditText
             android:id="@+id/type_msg"
             android:layout_height="match_parent"
             android:layout_width="0dp"
-            android:layout_margin="10dp"
-            android:textColor="@color/black"
             android:layout_weight="2"
+            android:textColor="@color/black"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:background="@drawable/rounded_edit_text"/>
 
         <ImageButton
             android:id="@+id/attach_btn"
             android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_margin="10dp"
             android:layout_height="match_parent"
-            android:src="@mipmap/ic_launcher"
+            android:layout_weight="0.5"
+            android:src="@drawable/ic_baseline_photo_camera_24"
+            android:scaleType="fitXY"
             />
 
         <ImageButton
             android:id="@+id/send_btn"
             android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_margin="10dp"
             android:layout_height="match_parent"
-            android:src="@mipmap/ic_launcher"
+            android:layout_weight="0.5"
+            android:src="@drawable/ic_baseline_send_24"
+            android:scaleType="fitXY"
             />
 
     </LinearLayout>
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+</LinearLayout>

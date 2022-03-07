@@ -92,7 +92,7 @@ public class ChatScreenActivity extends AppCompatActivity {
 
                 } else if (str.equals("2")) {
                     msgLst.add(new DataPojo(str, Constants.SEND));
-                    msgLst.add(new DataPojo("User pressed 2", Constants.RECEIVE));
+                    msgLst.add(new DataPojo("Please enter your scratch card code", Constants.RECEIVE));
 
                     isScratchCard = true;
 
@@ -104,6 +104,10 @@ public class ChatScreenActivity extends AppCompatActivity {
                 msgLst.add(new DataPojo("Welcome " + str + "\n" +
                         "Please upload your PAN / Adhaar image", Constants.RECEIVE));
 
+            } else if (isScratchCard) {
+                msgLst.add(new DataPojo(str, Constants.SEND));
+                msgLst.add(new DataPojo("Thanks for entering the scratch card code.\n" +
+                        "You won a reward of Rs 10/-", Constants.RECEIVE));
             }
 
             // refreshing the recycler view
