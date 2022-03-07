@@ -2,14 +2,17 @@ package com.example.alpha.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.alpha.R;
 
-public class SlashScreenActivity extends AppCompatActivity {
+@SuppressLint("CustomSplashScreen")
+public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +28,7 @@ public class SlashScreenActivity extends AppCompatActivity {
 
         int SPLASH_SCREEN_TIME_OUT = 2000;
         new Handler().postDelayed(() -> {
-            Intent i=new Intent(SlashScreenActivity.this, ChatScreenActivity.class);
+            Intent i=new Intent(SplashScreenActivity.this, ChatScreenActivity.class);
             //Intent is used to switch from one activity to another.
 
             startActivity(i);
