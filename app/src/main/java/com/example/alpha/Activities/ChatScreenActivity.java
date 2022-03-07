@@ -15,7 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.alpha.Adapters.ChatScreenAdapter;
@@ -58,10 +58,10 @@ public class ChatScreenActivity extends AppCompatActivity {
 
         etTypeMsg = findViewById(R.id.type_msg);
 
-        ImageButton btnSend = findViewById(R.id.send_btn);
+        ImageView btnSend = findViewById(R.id.send_btn);
         btnSend.setOnClickListener(v -> btnSendAction());
 
-        ImageButton btnAttch = findViewById(R.id.attach_btn);
+        ImageView btnAttch = findViewById(R.id.attach_btn);
         btnAttch.setOnClickListener(v -> btnAttachAction());
 
         recyclerView = findViewById(R.id.recyclerView);
