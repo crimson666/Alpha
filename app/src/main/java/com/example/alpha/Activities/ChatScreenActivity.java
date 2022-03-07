@@ -7,13 +7,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Html;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -25,6 +30,7 @@ import com.example.alpha.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ChatScreenActivity extends AppCompatActivity {
 
@@ -41,6 +47,8 @@ public class ChatScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_screen);
+
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0B5AAA")));
 
         msgLst = new ArrayList<>();
         msgLst.add(new DataPojo("Welcome to PXL Enterprise Family! " +
