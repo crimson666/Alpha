@@ -7,18 +7,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.Html;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -30,7 +27,7 @@ import com.example.alpha.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+import java.util.Objects;
 
 public class ChatScreenActivity extends AppCompatActivity {
 
@@ -48,10 +45,10 @@ public class ChatScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_screen);
 
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0B5AAA")));
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0B5AAA")));
 
         msgLst = new ArrayList<>();
-        msgLst.add(new DataPojo("Welcome to PXL Enterprise Family! " +
+        msgLst.add(new DataPojo("Welcome to PXL Enterprise Family!\n" +
                 "Please choose from the following option to move forward:\n" +
                 " * Type 1 to start the KYC procedure. \n" +
                 " * Type 2 to enter scratch card code.", Constants.RECEIVE));
@@ -87,7 +84,6 @@ public class ChatScreenActivity extends AppCompatActivity {
 
         String str = etTypeMsg.getText().toString().trim();
         if (!str.isEmpty()) {
-            // adding user response in the arraylist
 
             if (!isKYC && !isScratchCard) {
                 if (str.equals("1")) {
@@ -172,5 +168,4 @@ public class ChatScreenActivity extends AppCompatActivity {
             recyclerView.post(() -> adapter.notifyDataSetChanged());
         }
     }
-
 }
