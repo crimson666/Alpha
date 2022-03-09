@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/outgoing_cart"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -23,23 +24,27 @@
         android:elevation="10dp"
         />
 
-    <ImageView
-
-        android:id="@+id/imageView"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@drawable/outgoing_bubble"
-        android:lineSpacingExtra="2dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
         android:layout_marginStart="50dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="10dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="25dp"
-        android:adjustViewBounds="true"
-        android:visibility="gone"
-        android:scaleType="fitXY"
-        android:elevation="10dp"
-        />
+        android:layout_marginEnd="15dp"
+        android:elevation="10dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/outgoing_bubble"
+            android:lineSpacingExtra="2dp"
+            android:src="@drawable/bg_new"
+            android:adjustViewBounds="true"
+            android:visibility="gone"
+            android:scaleType="fitXY"
+            />
+    </androidx.cardview.widget.CardView>
+
 
     <TextView
         android:layout_width="0dp"

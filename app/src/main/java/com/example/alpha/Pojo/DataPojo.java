@@ -16,6 +16,17 @@ public class DataPojo {
         this.receiveOrSend = receiveOrSend;
     }
 
+    public DataPojo(Bitmap imgBitmap, String receiveOrSend) {
+        this.imgBitmap = imgBitmap;
+        this.receiveOrSend = receiveOrSend;
+    }
+
+    public DataPojo(String msg, Bitmap imgBitmap, String receiveOrSend) {
+        this.msg = msg;
+        this.imgBitmap = imgBitmap;
+        this.receiveOrSend = receiveOrSend;
+    }
+
     public String getMsg() {
         return msg;
     }
