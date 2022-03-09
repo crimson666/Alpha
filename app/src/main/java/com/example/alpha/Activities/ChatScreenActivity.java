@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.InputType;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,6 +40,7 @@ public class ChatScreenActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ChatScreenAdapter adapter;
     private LinearLayout msgLayout;
+    private ImageView btnAttach;
 
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
@@ -79,8 +81,9 @@ public class ChatScreenActivity extends AppCompatActivity {
         ImageView btnSend = findViewById(R.id.send_btn);
         btnSend.setOnClickListener(v -> btnSendAction());
 
-        ImageView btnAttch = findViewById(R.id.attach_btn);
-        btnAttch.setOnClickListener(v -> btnAttachAction());
+        btnAttach = findViewById(R.id.attach_btn);
+        btnAttach.setOnClickListener(v -> btnAttachAction());
+        btnAttach.setVisibility(View.GONE);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -122,11 +125,14 @@ public class ChatScreenActivity extends AppCompatActivity {
                 msgLst.add(new DataPojo("Welcome " + str + "\n" +
                         "Please upload your PAN / Adhaar image", Constants.RECEIVE));
 
+                btnAttach.setVisibility(View.VISIBLE);
+
             } else if (isScratchCard) {
                 msgLst.add(new DataPojo(str, Constants.SEND));
                 msgLst.add(new DataPojo("Thanks for entering the scratch card code.\n" +
                         "You won a reward of Rs 10/-", Constants.RECEIVE));
 
+                hideKeyboard(this);
                 msgLayout.setVisibility(View.GONE);
             }
 
@@ -171,13 +177,25 @@ public class ChatScreenActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-            DataPojo dataPojo = new DataPojo();
-            dataPojo.setImgBitmap(photo);
-            dataPojo.setReceiveOrSend(Constants.SEND);
 
-            msgLst.add(dataPojo);
+            msgLst.add(new DataPojo(photo, Constants.SEND));
+            msgLst.add(new DataPojo("Thanks for sharing the document.\n" +
+                    "You will be notified once the KYC process is complete.", Constants.RECEIVE));
 
+            msgLayout.setVisibility(View.GONE);
+            hideKeyboard(this);
             recyclerView.post(() -> adapter.notifyDataSetChanged());
         }
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
