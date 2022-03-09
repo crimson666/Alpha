@@ -19,7 +19,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         int SPLASH_SCREEN_TIME_OUT = 2000;
         new Handler().postDelayed(() -> {
-            Intent i=new Intent(SplashScreenActivity.this, ChatScreenActivity.class);
+            Intent i = new Intent(SplashScreenActivity.this, ChatScreenActivity.class);
             //Intent is used to switch from one activity to another.
 
             startActivity(i);

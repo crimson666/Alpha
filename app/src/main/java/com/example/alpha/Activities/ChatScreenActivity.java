@@ -16,8 +16,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputType;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.alpha.Adapters.ChatScreenAdapter;
@@ -35,10 +38,12 @@ public class ChatScreenActivity extends AppCompatActivity {
     private EditText etTypeMsg;
     private RecyclerView recyclerView;
     private ChatScreenAdapter adapter;
-    Boolean isKYC, isScratchCard;
+    private LinearLayout msgLayout;
 
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
+
+    Boolean isKYC, isScratchCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,20 +53,28 @@ public class ChatScreenActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0B5AAA")));
 
         msgLst = new ArrayList<>();
+
+        initializeAllObjects();
+        initializeActions();
+    }
+
+    private void initializeAllObjects() {
+
+        isKYC = false;
+        isScratchCard = false;
+
+        msgLst.clear();
         msgLst.add(new DataPojo("Welcome to PXL Enterprise Family!\n" +
                 "Please choose from the following option to move forward:\n" +
                 " * Type 1 to start the KYC procedure. \n" +
                 " * Type 2 to enter scratch card code.", Constants.RECEIVE));
 
-        initializeActions();
     }
 
     private void initializeActions() {
 
-        isKYC = false;
-        isScratchCard = false;
-
         etTypeMsg = findViewById(R.id.type_msg);
+        etTypeMsg.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         ImageView btnSend = findViewById(R.id.send_btn);
         btnSend.setOnClickListener(v -> btnSendAction());
@@ -76,6 +89,7 @@ public class ChatScreenActivity extends AppCompatActivity {
         adapter = new ChatScreenAdapter(msgLst);
         recyclerView.setAdapter(adapter);
 
+        msgLayout = findViewById(R.id.msgLayout);
 
     }
 
@@ -84,7 +98,6 @@ public class ChatScreenActivity extends AppCompatActivity {
 
         String str = etTypeMsg.getText().toString().trim();
         if (!str.isEmpty()) {
-
             if (!isKYC && !isScratchCard) {
                 if (str.equals("1")) {
                     msgLst.add(new DataPojo(str, Constants.SEND));
@@ -92,6 +105,7 @@ public class ChatScreenActivity extends AppCompatActivity {
                             "Register with us by providing your name and PAN / Adhaar image. \n\n" +
                             "Please enter your name", Constants.RECEIVE));
 
+                    etTypeMsg.setInputType(InputType.TYPE_CLASS_TEXT);
                     isKYC = true;
 
                 } else if (str.equals("2")) {
@@ -101,7 +115,7 @@ public class ChatScreenActivity extends AppCompatActivity {
                     isScratchCard = true;
 
                 } else {
-                    Toast.makeText(getApplicationContext(), "Please enter a valid response", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Please choose a valid option", Toast.LENGTH_LONG).show();
                 }
             } else if (isKYC) {
                 msgLst.add(new DataPojo(str, Constants.SEND));
@@ -112,6 +126,8 @@ public class ChatScreenActivity extends AppCompatActivity {
                 msgLst.add(new DataPojo(str, Constants.SEND));
                 msgLst.add(new DataPojo("Thanks for entering the scratch card code.\n" +
                         "You won a reward of Rs 10/-", Constants.RECEIVE));
+
+                msgLayout.setVisibility(View.GONE);
             }
 
             // refreshing the recycler view
@@ -128,8 +144,7 @@ public class ChatScreenActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
-            }
-            else {
+            } else {
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
             }
@@ -137,17 +152,14 @@ public class ChatScreenActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
-    {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == MY_CAMERA_PERMISSION_CODE)
-        {
+        if (requestCode == MY_CAMERA_PERMISSION_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
-            }
-            else {
+            } else {
                 Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
             }
         }
