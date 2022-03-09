@@ -5,6 +5,8 @@
     android:clickable="true"
     android:orientation="vertical"
     android:background="@drawable/bg_new"
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over"
     android:focusable="true">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -38,6 +40,7 @@
             android:textColor="@color/white"
             android:hint="Type an option ..."
             android:textColorHint="@color/white"
+            android:background="@null"
             android:padding="10dp"
             />
 
